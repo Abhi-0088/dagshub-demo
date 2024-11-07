@@ -6,6 +6,11 @@ import mlflow
 
 df = pd.read_csv('https://raw.githubusercontent.com/npradaschnor/Pima-Indians-Diabetes-Dataset/master/diabetes.csv')
 
+import dagshub
+dagshub.init(repo_owner='Abhi-0088', repo_name='dagshub-demo', mlflow=True)
+
+mlflow.set_tracking_uri("https://dagshub.com/Abhi-0088/dagshub-demo.mlflow")
+
 
 # Splitting data into features and target
 X = df.drop('Outcome', axis=1)
@@ -77,7 +82,7 @@ with mlflow.start_run(description="Best hyperparameter trained RF model") as par
     mlflow.sklearn.log_model(grid_search.best_estimator_, "random_forest", signature=signature)
 
     # tags
-    mlflow.set_tag("author","nitish")
+    mlflow.set_tag("author","abhilash")
 
     print(best_params)
     print(best_score)
